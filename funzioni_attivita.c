@@ -28,8 +28,9 @@ void stampa_attivita(attivita a){
     }else{
         printf("Scaduta\n");
     }
-
-    printf("Tempo stimato: %ld\n", ((ottieni_durata(a))/3600));
+    printf("Tempo completato: %ld\n", ((ottieni_tempo_completato(a))/3600));
+    printf("Tempo stimato: %ld\n", ((ottieni_tempo_stimato(a))/3600));
+    printf("Percentuale di progresso: %ld%%\n", (ottieni_tempo_completato(a) * 100) / ottieni_tempo_stimato(a));
     time_t scd = ottieni_scadenza(a);
     printf("Scadenza: %s\n", ctime(&scd));
 }

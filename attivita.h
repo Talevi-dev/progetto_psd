@@ -3,7 +3,7 @@ typedef struct act *attivita;
 #define MAX_NOME 50+1
 #define MAX_DESC 300+1 
 
-attivita crea_attivita(char *n, char *c, char *d, int p, int x, time_t drt, time_t scd);
+attivita crea_attivita(char *n, char *c, char *d, int p, int x, time_t cmp, time_t stm, time_t scd);
 
 attivita input_attivita();
 
@@ -17,7 +17,9 @@ int ottieni_priorita(attivita a);
 
 int ottieni_status(attivita a);
 
-time_t ottieni_durata(attivita a);
+time_t ottieni_tempo_completato(attivita a);
+
+time_t ottieni_tempo_stimato(attivita a);
 
 time_t ottieni_scadenza(attivita a);
 
@@ -31,6 +33,8 @@ void aggiorna_priorita(attivita a);
 
 void aggiorna_status(attivita a);
 
-void aggiorna_durata(attivita a);
+void aggiorna_tempo_completato(attivita a);
+
+void aggiorna_tempo_stimato(attivita a);
 
 void aggiorna_scadenza(attivita a);

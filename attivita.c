@@ -11,11 +11,12 @@ struct act{
     char descrizione[MAX_DESC];
     int priorita;
     int status;
-    time_t durata;
+    time_t tempo_completato;
+    time_t tempo_stimato;
     time_t scadenza;
 };
 
-attivita crea_attivita(char *n, char *c, char *d, int p, int x, time_t drt, time_t scd){
+attivita crea_attivita(char *n, char *c, char *d, int p, int x, time_t cmp, time_t stm, time_t scd){
     attivita nuova = (attivita)malloc(sizeof(struct act));
     if (nuova == NULL){
         printf("Errore: impossibile allocare memoria per la nuova attività.\n");
@@ -27,7 +28,8 @@ attivita crea_attivita(char *n, char *c, char *d, int p, int x, time_t drt, time
     strcpy(nuova->descrizione, d);
     nuova->priorita = p;
     nuova->status = x;
-    nuova->durata = drt;
+    nuova->tempo_completato = cmp;
+    nuova->tempo_stimato = stm;
     nuova->scadenza = scd;
 
     return nuova;
@@ -36,7 +38,7 @@ attivita crea_attivita(char *n, char *c, char *d, int p, int x, time_t drt, time
 attivita input_attivita(){
     char nome[MAX_NOME], corso[MAX_NOME], descrizione[MAX_DESC], data[MAX_DATA];
     int priorita, ore;
-    time_t durata = 0;
+    time_t stima = 0;
     time_t scadenza;
 
     printf("Inserire il nome dell' attività.\n");
@@ -67,13 +69,14 @@ attivita input_attivita(){
         printf("Inserire il tempo stimato per completare l'attività in ore.\n");
         scanf("%d", &ore);
         if (ore >= 1){
-            durata += (ore*3600);
+            stima += (ore*3600);
             break;
         } 
+        printf("Errore: inserire un numero di ore maggiore di 0.\n");
     }
 
     while (getchar() != '\n');
-     
+
     while (1){
         printf("Inserire la data di scadenza, utilizzare il formato dd/mm/yyyy hh/mm.\n");
         input_stringa(data, MAX_DATA);
@@ -87,7 +90,7 @@ attivita input_attivita(){
         } 
     }
     
-    return crea_attivita(nome, corso, descrizione, priorita, 0, durata, scadenza); 
+    return crea_attivita(nome, corso, descrizione, priorita, 0, 0, stima, scadenza); 
 }
 
 char *ottieni_nome(attivita a){
@@ -110,8 +113,12 @@ int ottieni_status(attivita a){
     return a -> status;
 }
 
-time_t ottieni_durata(attivita a){
-    return a -> durata;
+time_t ottieni_tempo_completato(attivita a){
+    return a -> tempo_completato;
+}
+
+time_t ottieni_tempo_stimato(attivita a){
+    return a -> tempo_stimato;
 }
 
 time_t ottieni_scadenza(attivita a){
@@ -166,26 +173,41 @@ void aggiorna_priorita(attivita a){
 void aggiorna_status(attivita a){
     time_t ora_attuale = time(NULL);
     
-    if ((a -> durata) == 0){
+    if ((a -> tempo_completato) == (a -> tempo_stimato)){
         a -> status = 1;
     }else if (((a -> scadenza) < ora_attuale)){
         a -> status = -1;
     }
 }
 
-void aggiorna_durata(attivita a){
+void aggiorna_tempo_completato(attivita a){
+    int o;
+
+    while (1){
+        printf("Inserire in numero di ore completato di questa attività.\n");
+        scanf("%d", &o);
+        if (((ottieni_tempo_completato(a) + (o * 3600)) <= ottieni_tempo_stimato(a)) && (o >= 0)){
+            break;
+        }
+        printf("Errore: numero di ore negativo o maggiore del tempo necessario a completare l'attivita.\n");
+    }
+
+    a -> tempo_completato += (o * 3600);
+}
+
+void aggiorna_tempo_stimato(attivita a){
     int o;
 
     while (1){
         printf("Inserire quante ore da sottrarre(-) o sommare(+) al tempo stimato per completare l'attività.\n");
         scanf("%d", &o);
-        if ((a -> durata) + (o * 3600) >= 0){
+        if ((a -> tempo_stimato) + (o * 3600) >= 0){
             break;
         }
         printf("Errore: le ore da sottrarre sono più di quelle residue\n");
     }
 
-    (a -> durata) += (o * 3600);
+    (a -> tempo_stimato) += (o * 3600);
 }
 
 void aggiorna_scadenza(attivita a){
