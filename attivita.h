@@ -23,18 +23,18 @@ time_t ottieni_tempo_stimato(attivita a);
 
 time_t ottieni_scadenza(attivita a);
 
-void aggiorna_nome(attivita a);
+void aggiorna_nome(attivita a, char *nuovo);
 
-void aggiorna_corso(attivita a);
+void aggiorna_corso(attivita a, char *nuovo);
 
-void aggiorna_descrizione(attivita a);
+void aggiorna_descrizione(attivita a, char *nuovo);
 
-void aggiorna_priorita(attivita a);
+void aggiorna_priorita(attivita a, int nuovo);
 
 void aggiorna_status(attivita a);
 
-void aggiorna_tempo_completato(attivita a);
+void aggiorna_tempo_completato(attivita a, int o);
 
-void aggiorna_tempo_stimato(attivita a);
+void aggiorna_tempo_stimato(attivita a, int o);
 
-void aggiorna_scadenza(attivita a);
+void aggiorna_scadenza(attivita a, time_t nuovo);

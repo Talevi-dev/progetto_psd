@@ -125,48 +125,19 @@ time_t ottieni_scadenza(attivita a){
     return a -> scadenza;
 }
 
-void aggiorna_nome(attivita a){
-    char nuovo[MAX_NOME];
-    printf("Inserire il nuovo nome dell' attività.\n");
-    while (input_stringa(nuovo, MAX_NOME)){
-        printf("Attenzione, il nuovo nome dell' attività è troppo lungo, riprovare.(max 50 caratteri)\n");
-    }
-
+void aggiorna_nome(attivita a, char *nuovo){
     strcpy(a->nome, nuovo);
 }
 
-void aggiorna_corso(attivita a){
-    char nuovo[MAX_NOME];
-    printf("Inserire il nuovo nome del corso.\n");
-    while (input_stringa(nuovo, MAX_NOME)){
-        printf("Attenzione, il nuovo nome del corso è troppo lungo, riprovare.(max 50 caratteri)\n");
-    }
-
+void aggiorna_corso(attivita a, char *nuovo){
     strcpy(a->corso, nuovo);
 }
 
-void aggiorna_descrizione(attivita a){
-    char nuovo[MAX_DESC];
-    printf("Inserire la nuova descrizione dell' attività.\n");
-    while (input_stringa(nuovo, MAX_DESC)){
-        printf("Attenzione, la nuova descrizione è troppo lunga, riprovare.(max 300 caratteri)\n");
-    }
-
+void aggiorna_descrizione(attivita a, char *nuovo){
     strcpy(a->descrizione, nuovo);
 }
 
-void aggiorna_priorita(attivita a){
-    int p;
-
-    while (1){
-        printf("Inserire la nuova priorità:\n| Bassa [1|2|3] | Media [4|5|6] | Alta [7|8|9] |\n");
-        scanf("%d", &p);
-        if (p < 10 && p > 0){
-            break;
-        } 
-        printf("Errore: digitare un intero compreso tra 1 e 9\n");
-    }
-
+void aggiorna_priorita(attivita a, int p){
     a -> priorita = p;
 }
 
@@ -180,54 +151,14 @@ void aggiorna_status(attivita a){
     }
 }
 
-void aggiorna_tempo_completato(attivita a){
-    int o;
-
-    while (1){
-        printf("Inserire in numero di ore completato di questa attività.\n");
-        scanf("%d", &o);
-        if (((ottieni_tempo_completato(a) + (o * 3600)) <= ottieni_tempo_stimato(a)) && (o >= 0)){
-            break;
-        }
-        printf("Errore: numero di ore negativo o maggiore del tempo necessario a completare l'attivita.\n");
-    }
-
+void aggiorna_tempo_completato(attivita a, int o){
     a -> tempo_completato += (o * 3600);
 }
 
-void aggiorna_tempo_stimato(attivita a){
-    int o;
-
-    while (1){
-        printf("Inserire quante ore da sottrarre(-) o sommare(+) al tempo stimato per completare l'attività.\n");
-        scanf("%d", &o);
-        if ((a -> tempo_stimato) + (o * 3600) >= 0){
-            break;
-        }
-        printf("Errore: le ore da sottrarre sono più di quelle residue\n");
-    }
-
+void aggiorna_tempo_stimato(attivita a, int o){
     (a -> tempo_stimato) += (o * 3600);
 }
 
-void aggiorna_scadenza(attivita a){
-    char d[MAX_DATA];
-    time_t nuova;
-
-    while (getchar() != '\n'); 
-
-    while (1){
-        printf("Inserire la nuova data di scadenza, utilizzare il formato dd/mm/yyyy hh/mm.\n");
-        input_stringa(d, MAX_DATA);
-        if (controlla_input_data(d)){
-            time_t ora_attuale = time(NULL);
-            nuova = converti_data(d);
-            if (nuova > ora_attuale){
-                break;
-            }
-            printf("Errore: la data inserita è gia passata.\n");
-        } 
-    }
-
+void aggiorna_scadenza(attivita a, time_t nuova){
     a -> scadenza = nuova;
 }

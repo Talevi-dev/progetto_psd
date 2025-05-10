@@ -38,5 +38,10 @@ void stampa_attivita(attivita a){
 int confronta_attivita(attivita a, attivita b){
     return (!strcmp(ottieni_nome(a), ottieni_nome(b)) && 
             !strcmp(ottieni_corso(a), ottieni_corso(b)) && 
-            !strcmp(ottieni_descrizione(a), ottieni_nome(b)));
+            !strcmp(ottieni_descrizione(a), ottieni_nome(b)) &&
+            (ottieni_priorita(a) == ottieni_priorita(b)) &&
+            (ottieni_status(a) == ottieni_status(b)) &&
+            (ottieni_tempo_completato(a) == ottieni_tempo_completato(b)) &&
+            (ottieni_tempo_stimato(a) == ottieni_tempo_stimato(b)) &&
+            (ottieni_scadenza(a) == ottieni_scadenza(b)));
 }
