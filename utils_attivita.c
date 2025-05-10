@@ -83,4 +83,6 @@ time_t converti_data (char *data){
     } else {
         printf("Errore nella conversione in data_t.\n");
     }
+
+    return data_t;
 }

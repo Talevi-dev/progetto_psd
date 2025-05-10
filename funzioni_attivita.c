@@ -7,7 +7,7 @@
 void stampa_attivita(attivita a){
     printf("Nome: %s\n", ottieni_nome(a));
     printf("Corso: %s\n", ottieni_corso(a));
-    printf("Descrizione: %s\n", ottieni_descriione(a));
+    printf("Descrizione: %s\n", ottieni_descrizione(a));
 
     int p = ottieni_priorita(a);
     printf("Priorità: ");
@@ -37,5 +37,5 @@ void stampa_attivita(attivita a){
 int confronta_attivita(attivita a, attivita b){
     return (!strcmp(ottieni_nome(a), ottieni_nome(b)) && 
             !strcmp(ottieni_corso(a), ottieni_corso(b)) && 
-            !strcmp(ottieni_descriione(a), ottieni_nome(b)));
+            !strcmp(ottieni_descrizione(a), ottieni_nome(b)));
 }

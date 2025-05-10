@@ -26,3 +26,11 @@ void aggiorna_nome(attivita a);
 void aggiorna_corso(attivita a);
 
 void aggiorna_descrizione(attivita a);
+
+void aggiorna_priorita(attivita a);
+
+void aggiorna_status(attivita a);
+
+void aggiorna_durata(attivita a);
+
+void aggiorna_scadenza(attivita a);

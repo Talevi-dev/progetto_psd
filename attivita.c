@@ -40,22 +40,22 @@ attivita input_attivita(){
     time_t scadenza;
 
     printf("Inserire il nome dell' attività.\n");
-    if (input_stringa(nome, MAX_NOME)){
-        printf("Attenzione, il nome dell' attività è troppo lungo ed è stato troncato.\n");
+    while (input_stringa(nome, MAX_NOME)){
+        printf("Attenzione, il nome dell' attività è troppo lungo, riprovare.(max 50 caratteri)\n");
     }
 
     printf("Inserire il nome del corso.\n");
-    if (input_stringa(corso, MAX_NOME)){
-        printf("Attenzione, il nome del corso è troppo lunga ed è stato troncato.\n");
+    while (input_stringa(corso, MAX_NOME)){
+        printf("Attenzione, il nome del corso è troppo lungo, riprovare.(max 50 caratteri)\n");
     }
 
     printf("Inserire la descrizione dell' attività.\n");
-    if (input_stringa(descrizione, MAX_DESC)){
-        printf("Attenzione, la descrizione è troppo lunga ed è stata troncata.\n");
+    while (input_stringa(descrizione, MAX_DESC)){
+        printf("Attenzione, la descrizione è troppo lunga, riprovare.(max 300 caratteri)\n");
     }
     
     while (1){
-        printf("Inserire la priorità: bassa [1|2|3], media [3|5|6], alta [7|8|9]");
+        printf("Inserire la priorità:\n| Bassa [1|2|3] | Media [4|5|6] | Alta [7|8|9] |\n");
         scanf("%d", &priorita);
         if (priorita < 10 && priorita > 0){
             break;
@@ -72,15 +72,18 @@ attivita input_attivita(){
         } 
     }
 
+    while (getchar() != '\n');
+     
     while (1){
         printf("Inserire la data di scadenza, utilizzare il formato dd/mm/yyyy hh/mm.\n");
         input_stringa(data, MAX_DATA);
         if (controlla_input_data(data)){
             time_t ora_attuale = time(NULL);
-            if ((scadenza = converti_data(data)) > ora_attuale){
+            scadenza = converti_data(data);
+            if (scadenza > ora_attuale){
                 break;
             }
-            printf("Errore, la scadenza inserita è già passata\n");
+            printf("Errore: la data inserita è gia passata.\n");
         } 
     }
     
@@ -117,48 +120,92 @@ time_t ottieni_scadenza(attivita a){
 
 void aggiorna_nome(attivita a){
     char nuovo[MAX_NOME];
+    printf("Inserire il nuovo nome dell' attività.\n");
     while (input_stringa(nuovo, MAX_NOME)){
-        printf("Attenzione, il nome dell' attività è troppo lungo ed è stato troncato.\n");
+        printf("Attenzione, il nuovo nome dell' attività è troppo lungo, riprovare.(max 50 caratteri)\n");
     }
+
+    strcpy(a->nome, nuovo);
 }
 
 void aggiorna_corso(attivita a){
     char nuovo[MAX_NOME];
+    printf("Inserire il nuovo nome del corso.\n");
     while (input_stringa(nuovo, MAX_NOME)){
-        printf("Attenzione, il nome del corso è troppo lungo ed è stato troncato.\n");
+        printf("Attenzione, il nuovo nome del corso è troppo lungo, riprovare.(max 50 caratteri)\n");
     }
+
+    strcpy(a->corso, nuovo);
 }
 
 void aggiorna_descrizione(attivita a){
     char nuovo[MAX_DESC];
+    printf("Inserire la nuova descrizione dell' attività.\n");
     while (input_stringa(nuovo, MAX_DESC)){
-        printf("Attenzione, la descrizione è troppo lunga ed è stato troncato.\n");
+        printf("Attenzione, la nuova descrizione è troppo lunga, riprovare.(max 300 caratteri)\n");
+    }
+
+    strcpy(a->descrizione, nuovo);
+}
+
+void aggiorna_priorita(attivita a){
+    int p;
+
+    while (1){
+        printf("Inserire la nuova priorità:\n| Bassa [1|2|3] | Media [4|5|6] | Alta [7|8|9] |\n");
+        scanf("%d", &p);
+        if (p < 10 && p > 0){
+            break;
+        } 
+        printf("Errore: digitare un intero compreso tra 1 e 9\n");
+    }
+
+    a -> priorita = p;
+}
+
+void aggiorna_status(attivita a){
+    time_t ora_attuale = time(NULL);
+    
+    if ((a -> durata) == 0){
+        a -> status = 1;
+    }else if (((a -> scadenza) < ora_attuale)){
+        a -> status = -1;
     }
 }
 
-/*void stampa_attivita(attivita a){
-    printf("Nome: %s\n", a ->nome);
-    printf("Corso: %s\n", a -> corso);
-    printf("Descrizione: %s\n", a-> descrizione);
+void aggiorna_durata(attivita a){
+    int o;
 
-    printf("Priorità: ");
-    if ((a -> priorita) <= 3){
-        printf("Bassa(%d)\n", a -> priorita);
-    }else if ((a -> priorita) <= 6){
-        printf("Media(%d)\n", a -> priorita);
-    }else{
-        printf("Alta(%d)\n", a -> priorita);
+    while (1){
+        printf("Inserire quante ore da sottrarre(-) o sommare(+) al tempo stimato per completare l'attività.\n");
+        scanf("%d", &o);
+        if ((a -> durata) + (o * 3600) >= 0){
+            break;
+        }
+        printf("Errore: le ore da sottrarre sono più di quelle residue\n");
     }
 
-    printf("Status: ");
-    if ((a -> status) == 0){
-        printf("In corso\n");
-    }else if ((a -> status) == 1){
-        printf("Completata\n");
-    }else{
-        printf("Scaduta\n");
+    (a -> durata) += (o * 3600);
+}
+
+void aggiorna_scadenza(attivita a){
+    char d[MAX_DATA];
+    time_t nuova;
+
+    while (getchar() != '\n'); 
+
+    while (1){
+        printf("Inserire la nuova data di scadenza, utilizzare il formato dd/mm/yyyy hh/mm.\n");
+        input_stringa(d, MAX_DATA);
+        if (controlla_input_data(d)){
+            time_t ora_attuale = time(NULL);
+            nuova = converti_data(d);
+            if (nuova > ora_attuale){
+                break;
+            }
+            printf("Errore: la data inserita è gia passata.\n");
+        } 
     }
 
-    printf("Tempo stimato: %ld\n", ((a->durata)/3600));
-    printf("Scadenza: %s\n", ctime(&(a->scadenza)));
-}*/
+    a -> scadenza = nuova;
+}
