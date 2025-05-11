@@ -38,3 +38,5 @@ void aggiorna_tempo_completato(attivita a, int o);
 void aggiorna_tempo_stimato(attivita a, int o);
 
 void aggiorna_scadenza(attivita a, time_t nuovo);
+
+int sono_uguali(attivita a, attivita b);

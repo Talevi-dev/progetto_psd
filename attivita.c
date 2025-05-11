@@ -57,21 +57,23 @@ attivita input_attivita(){
     }
     
     while (1){
-        printf("Inserire la priorità:\n| Bassa [1|2|3] | Media [4|5|6] | Alta [7|8|9] |\n");
-        scanf("%d", &priorita);
-        if (priorita < 10 && priorita > 0){
+        printf("Inserire la priorità:\n| Bassa [0|1|2|3] | Media [4|5|6] | Alta [7|8|9|10] |\n");
+        int r = scanf("%d", &priorita);
+        if (priorita <= 10 && priorita >=  0 && r == 1){
             break;
         } 
+        while (getchar() != '\n');
         printf("Errore: digitare un intero compreso tra 1 e 9\n");
     }
 
     while (1){
         printf("Inserire il tempo stimato per completare l'attività in ore.\n");
-        scanf("%d", &ore);
-        if (ore >= 1){
+        int r = scanf("%d", &ore);
+        if (ore >= 1 && r == 1){
             stima += (ore*3600);
             break;
         } 
+        while (getchar() != '\n');
         printf("Errore: inserire un numero di ore maggiore di 0.\n");
     }
 
