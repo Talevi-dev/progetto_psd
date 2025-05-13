@@ -15,6 +15,8 @@ char *ottieni_corso(attivita a);
 
 char *ottieni_descrizione(attivita a);
 
+int ottieni_ID(attivita a);
+
 int ottieni_priorita(attivita a);
 
 int ottieni_status(attivita a);

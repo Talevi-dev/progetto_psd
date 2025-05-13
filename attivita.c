@@ -9,6 +9,7 @@ struct act{
     char nome[MAX_NOME];
     char corso[MAX_NOME];
     char descrizione[MAX_DESC];
+    int ID;
     int priorita;
     int status;
     time_t tempo_completato;
@@ -33,7 +34,7 @@ attivita crea_attivita(char *n, char *c, char *d, int p, int x, time_t cmp, time
     strncpy(nuova->descrizione, d, MAX_DESC - 1);
     nuova->descrizione[MAX_DESC - 1] = '\0';
 
-    nuova->nome[MAX_NOME - 1] = '\0';
+    nuova->ID = genera_ID();
     nuova->priorita = p;
     nuova->status = x;
     nuova->tempo_completato = cmp;
@@ -113,6 +114,7 @@ void copia_attivita(attivita a, attivita b) {
     strncpy(a->descrizione, b->descrizione, MAX_DESC - 1);
     a->descrizione[MAX_DESC - 1] = '\0';
 
+    a->ID = b->ID;
     a->priorita = b->priorita;
     a->status = b->status;
     a->tempo_completato = b->tempo_completato;
@@ -131,6 +133,10 @@ char *ottieni_corso(attivita a){
 
 char *ottieni_descrizione(attivita a){
     return a -> descrizione;
+}
+
+int ottieni_ID(attivita a){
+    return a -> ID;
 }
 
 int ottieni_priorita(attivita a){
