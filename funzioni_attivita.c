@@ -13,11 +13,11 @@ void stampa_attivita(attivita a){
     int p = ottieni_priorita(a);
     printf("Priorità: ");
     if ((p) <= 3){
-        printf("Bassa(%d)\n", p);
+        printf("Alta(%d)\n", p);
     }else if ((p) <= 6){
         printf("Media(%d)\n", p);
     }else{
-        printf("Alta(%d)\n", p);
+        printf("Bassa(%d)\n", p);
     }
 
     int s = ottieni_status(a);
@@ -51,6 +51,14 @@ int confronta_attivita(attivita a, attivita b){
 int confronta_attivita_priorita(attivita a, attivita b){
     if (ottieni_priorita(a) != ottieni_priorita(b)){
         return ottieni_priorita(a) - ottieni_priorita(b);
+    }else{
+        return ottieni_ID(a) - ottieni_ID(b);
+    }
+}
+
+int confronta_attivita_scadenza(attivita a, attivita b){
+    if (ottieni_scadenza(a) != ottieni_scadenza(b)){
+        return ottieni_scadenza(a) - ottieni_scadenza(b);
     }else{
         return ottieni_ID(a) - ottieni_ID(b);
     }
