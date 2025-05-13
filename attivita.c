@@ -66,7 +66,7 @@ attivita input_attivita(){
     }
     
     while (1){
-        printf("Inserire la priorità:\n| Bassa [0|1|2|3] | Media [4|5|6] | Alta [7|8|9|10] |\n");
+        printf("Inserire la priorità:\n| Alta [0|1|2|3] | Media [4|5|6] | Bassa [7|8|9|10] |\n");
         int r = scanf("%d", &priorita);
         if (priorita <= 10 && priorita >=  0 && r == 1){
             break;
