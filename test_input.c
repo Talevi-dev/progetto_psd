@@ -88,7 +88,6 @@ int run_test(char *tc_id, int op, char *str){
             aggiorna_tempo_completato(in, atol(str));
             aggiorna_status(in);
             result = confronta_attivita(in, or);
-            printf("%d", result);
             file_output(output_fname, in);
             break;
 

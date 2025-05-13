@@ -23,9 +23,17 @@ attivita crea_attivita(char *n, char *c, char *d, int p, int x, time_t cmp, time
         exit(EXIT_FAILURE);
     }
     
-    strcpy(nuova->nome, n);
-    strcpy(nuova->corso, c);
-    strcpy(nuova->descrizione, d);
+    //strcpy(nuova->nome, n);
+    strncpy(nuova->nome, n, MAX_NOME - 1);
+    nuova->nome[MAX_NOME - 1] = '\0';
+    //strcpy(nuova->corso, c);
+    strncpy(nuova->corso, c, MAX_NOME - 1);
+    nuova->corso[MAX_NOME - 1] = '\0';
+    //strcpy(nuova->descrizione, d);
+    strncpy(nuova->descrizione, d, MAX_DESC - 1);
+    nuova->descrizione[MAX_DESC - 1] = '\0';
+
+    nuova->nome[MAX_NOME - 1] = '\0';
     nuova->priorita = p;
     nuova->status = x;
     nuova->tempo_completato = cmp;
@@ -95,6 +103,24 @@ attivita input_attivita(){
     return crea_attivita(nome, corso, descrizione, priorita, 0, 0, stima, scadenza); 
 }
 
+void copia_attivita(attivita a, attivita b) {
+    strncpy(a->nome, b->nome, MAX_NOME - 1);
+    a->nome[MAX_NOME - 1] = '\0';
+
+    strncpy(a->corso, b->corso, MAX_NOME - 1);
+    a->corso[MAX_NOME - 1] = '\0';
+
+    strncpy(a->descrizione, b->descrizione, MAX_DESC - 1);
+    a->descrizione[MAX_DESC - 1] = '\0';
+
+    a->priorita = b->priorita;
+    a->status = b->status;
+    a->tempo_completato = b->tempo_completato;
+    a->tempo_stimato = b->tempo_stimato;
+    a->scadenza = b->scadenza;
+}
+
+
 char *ottieni_nome(attivita a){
     return a -> nome;
 }
@@ -128,15 +154,18 @@ time_t ottieni_scadenza(attivita a){
 }
 
 void aggiorna_nome(attivita a, char *nuovo){
-    strcpy(a->nome, nuovo);
+    strncpy(a->nome, nuovo, MAX_NOME - 1);
+    a->nome[MAX_NOME - 1] = '\0';
 }
 
 void aggiorna_corso(attivita a, char *nuovo){
-    strcpy(a->corso, nuovo);
+    strncpy(a->corso, nuovo, MAX_NOME - 1);
+    a->corso[MAX_NOME - 1] = '\0';
 }
 
 void aggiorna_descrizione(attivita a, char *nuovo){
-    strcpy(a->descrizione, nuovo);
+    strncpy(a->descrizione, nuovo, MAX_DESC - 1);
+    a->descrizione[MAX_DESC - 1] = '\0';
 }
 
 void aggiorna_priorita(attivita a, int p){

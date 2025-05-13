@@ -7,6 +7,8 @@ attivita crea_attivita(char *n, char *c, char *d, int p, int x, time_t cmp, time
 
 attivita input_attivita();
 
+void copia_attivita(attivita a, attivita b);
+
 char *ottieni_nome(attivita a);
 
 char *ottieni_corso(attivita a);
@@ -38,5 +40,3 @@ void aggiorna_tempo_completato(attivita a, int o);
 void aggiorna_tempo_stimato(attivita a, int o);
 
 void aggiorna_scadenza(attivita a, time_t nuovo);
-
-int sono_uguali(attivita a, attivita b);
