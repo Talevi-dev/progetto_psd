@@ -74,10 +74,10 @@ alberoAVL inserisci_alberoAVL(alberoAVL N, attivita a){
     if (N == NULL){
         return crea_foglia(a);
     }
-
-    if (ottieni_priorita(a) < ottieni_priorita(N->chiave)){
+    
+    if (confronta_attivita_priorita(a, N->chiave) < 0){
         N->sinistra = inserisci_alberoAVL(N->sinistra, a);
-    }else if (ottieni_priorita(a) > ottieni_priorita(N->chiave)){
+    }else if (confronta_attivita_priorita(a, N->chiave) > 0){
         N->destra = inserisci_alberoAVL(N->destra, a);
     }else{
         return N;
@@ -134,9 +134,9 @@ alberoAVL cancella_alberoAVL(alberoAVL N, attivita a){
         return N;
     }
 
-    if ( ottieni_priorita(a) < ottieni_priorita(N->chiave)){
+    if ( confronta_attivita_priorita(a, N->chiave) < 0){
         N->sinistra = cancella_alberoAVL(N->sinistra, a);
-    }else if( ottieni_priorita(a) > ottieni_priorita(N->chiave)){
+    }else if( confronta_attivita_priorita(a, N->chiave) > 0){
         N->destra = cancella_alberoAVL(N->destra, a);
     }else{
 
