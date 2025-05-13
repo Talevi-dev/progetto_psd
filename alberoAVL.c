@@ -85,25 +85,7 @@ alberoAVL inserisci_alberoAVL(alberoAVL N, attivita a){
 
     N->altezza = 1 + max(ottieni_altezza(N->sinistra), ottieni_altezza(N->destra));
 
-    int balance = ottieni_bilanciamento(N);
-
-    if (balance > 1 && ottieni_priorita(a) < ottieni_priorita(N->sinistra->chiave)){
-        return rotazione_destra(N);
-    }
-
-    if (balance < -1 && ottieni_priorita(a) > ottieni_priorita(N->destra->chiave)){
-        return rotazione_sinistra(N);
-    }
-
-    if (balance > 1 && ottieni_priorita(a) > ottieni_priorita(N->sinistra->chiave)){
-        N->sinistra = rotazione_sinistra(N->sinistra);
-        return rotazione_destra(N);
-    }
-
-    if (balance < -1 && ottieni_priorita(a) < ottieni_priorita(N->destra->chiave)){
-        N->destra = rotazione_destra(N->destra);
-        return rotazione_sinistra(N);
-    }
+    N = bilancia_alberoAVL(N, ottieni_bilanciamento(N));
 
     return N;
 }
@@ -124,6 +106,27 @@ alberoAVL min_nodo(alberoAVL node){
     }
 
     return current;
+}
+
+
+alberoAVL bilancia_alberoAVL(alberoAVL N, int bil){
+    if (bil > 1 && ottieni_bilanciamento(N->sinistra) >= 0){
+        return rotazione_destra(N);
+    }
+
+    if (bil > 1 && ottieni_bilanciamento(N->sinistra) < 0){
+        N->sinistra =  rotazione_sinistra(N->sinistra);
+        return rotazione_destra(N);
+    }
+
+    if (bil < -1 && ottieni_bilanciamento(N->destra) <= 0){
+        return rotazione_sinistra(N);
+    }
+
+    if (bil < -1 && ottieni_bilanciamento(N->destra) > 0){
+        N->destra = rotazione_destra(N->destra);
+        return rotazione_sinistra(N);
+    }
 }
 
 alberoAVL cancella_alberoAVL(alberoAVL N, attivita a){
@@ -162,26 +165,8 @@ alberoAVL cancella_alberoAVL(alberoAVL N, attivita a){
 
     N->altezza = 1 + max(ottieni_altezza(N->sinistra), ottieni_altezza(N->destra));
 
-    int balance = ottieni_bilanciamento(N);
-
-    if (balance > 1 && ottieni_bilanciamento(N->sinistra) >= 0){
-        return rotazione_destra(N);
-    }
-
-    if (balance > 1 && ottieni_bilanciamento(N->sinistra) < 0){
-        N->sinistra =  rotazione_sinistra(N->sinistra);
-        return rotazione_destra(N);
-    }
-
-    if (balance < -1 && ottieni_bilanciamento(N->destra) <= 0){
-        return rotazione_sinistra(N);
-    }
-
-    if (balance < -1 && ottieni_bilanciamento(N->destra) > 0){
-        N->destra = rotazione_destra(N->destra);
-        return rotazione_sinistra(N);
-    }
-
+    N = bilancia_alberoAVL(N, ottieni_bilanciamento(N));
+    
     return N;
 }
 
