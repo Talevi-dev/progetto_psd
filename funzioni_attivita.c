@@ -55,3 +55,11 @@ int confronta_attivita_priorita(attivita a, attivita b){
         return ottieni_ID(a) - ottieni_ID(b);
     }
 }
+
+int confronta_attivita_scadenza(attivita a, attivita b){
+    if (ottieni_scadenza(a) != ottieni_scadenza(b)){
+        return ottieni_scadenza(a) - ottieni_scadenza(b);
+    }else{
+        return ottieni_ID(a) - ottieni_ID(b);
+    }
+}
