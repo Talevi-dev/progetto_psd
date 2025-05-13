@@ -4,6 +4,8 @@
 #include <time.h>
 #include "utils_attivita.h"
 
+#define FILE_ID "id.txt"
+
 int input_stringa(char *str, int len){
 
     if (fgets(str, len, stdin)){  
@@ -85,4 +87,26 @@ time_t converti_data (char *data){
     }
 
     return data_t;
+}
+
+int genera_ID(){
+    FILE *fd = fopen(FILE_ID, "r");
+    int ultimo_ID = 0;
+
+    if (fd != NULL) {
+        fscanf(fd, "%d", &ultimo_ID);
+        fclose(fd);
+    }
+
+    int nuovo_ID = ultimo_ID + 1;
+
+    fd = fopen(FILE_ID, "w");
+    if (fd != NULL) {
+        fprintf(fd, "%d", nuovo_ID);
+        fclose(fd);
+    } else {
+        printf("Errore nel salvataggio dell'ID nel file\n");
+    }
+
+    return nuovo_ID;
 }
