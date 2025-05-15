@@ -9,7 +9,6 @@ struct act{
     char nome[MAX_NOME];
     char corso[MAX_NOME];
     char descrizione[MAX_DESC];
-    int ID;
     int priorita;
     int status;
     time_t tempo_completato;
@@ -17,7 +16,7 @@ struct act{
     time_t scadenza;
 };
 
-attivita crea_attivita(char *n, char *c, char *d, int id, int p, int x, time_t cmp, time_t stm, time_t scd){
+attivita crea_attivita(char *n, char *c, char *d, int p, int x, time_t cmp, time_t stm, time_t scd){
     attivita nuova = (attivita)malloc(sizeof(struct act));
     if (nuova == NULL){
         printf("Errore: impossibile allocare memoria per la nuova attività.\n");
@@ -33,7 +32,6 @@ attivita crea_attivita(char *n, char *c, char *d, int id, int p, int x, time_t c
     strncpy(nuova->descrizione, d, MAX_DESC - 1);
     nuova->descrizione[MAX_DESC - 1] = '\0';
 
-    nuova->ID = id;
     nuova->priorita = p;
     nuova->status = x;
     nuova->tempo_completato = cmp;
@@ -65,12 +63,12 @@ attivita input_attivita(){
     }
     
     while (1){
-        printf("Inserire la priorità:\n| Alta [0|1|2|3] | Media [4|5|6] | Bassa [7|8|9|10] |\n");
+        printf("Inserire la priorità:\n| Alta [3] | Media [2] | Bassa [1] |\n");
         int r = scanf("%d", &priorita);
         if (priorita <= 3 && priorita >=  1 && r == 1){
             break;
         } 
-        while (getchar() != '\n');
+        pulisci_buffer();
         printf("Errore: digitare un intero compreso tra 0 e 10\n");
     }
 
@@ -81,11 +79,11 @@ attivita input_attivita(){
             stima += (ore*3600);
             break;
         } 
-        while (getchar() != '\n');
+        pulisci_buffer();
         printf("Errore: inserire un numero di ore maggiore di 0.\n");
     }
 
-    while (getchar() != '\n');
+    pulisci_buffer();
 
     while (1){
         printf("Inserire la data di scadenza, utilizzare il formato dd/mm/yyyy hh/mm.\n");
@@ -100,7 +98,7 @@ attivita input_attivita(){
         } 
     }
     
-    return crea_attivita(nome, corso, descrizione, genera_ID(), priorita, 0, 0, stima, scadenza); 
+    return crea_attivita(nome, corso, descrizione, priorita, 0, 0, stima, scadenza); 
 }
 
 void copia_attivita(attivita a, attivita b) {
@@ -113,7 +111,6 @@ void copia_attivita(attivita a, attivita b) {
     strncpy(a->descrizione, b->descrizione, MAX_DESC - 1);
     a->descrizione[MAX_DESC - 1] = '\0';
 
-    a->ID = b->ID;
     a->priorita = b->priorita;
     a->status = b->status;
     a->tempo_completato = b->tempo_completato;
@@ -132,10 +129,6 @@ char *ottieni_corso(attivita a){
 
 char *ottieni_descrizione(attivita a){
     return a -> descrizione;
-}
-
-int ottieni_ID(attivita a){
-    return a -> ID;
 }
 
 int ottieni_priorita(attivita a){
@@ -180,10 +173,12 @@ void aggiorna_priorita(attivita a, int p){
 void aggiorna_status(attivita a){
     time_t ora_attuale = time(NULL);
     
-    if ((a -> tempo_completato) == (a -> tempo_stimato)){
+    if ((a -> tempo_completato) >= (a -> tempo_stimato)){
         a -> status = 1;
-    }else if (((a -> scadenza) < ora_attuale)){
+    }else if(((a -> scadenza) < ora_attuale)){
         a -> status = -1;
+    }else{
+        a -> status = 0;
     }
 }
 
@@ -192,7 +187,7 @@ void aggiorna_tempo_completato(attivita a, int o){
 }
 
 void aggiorna_tempo_stimato(attivita a, int o){
-    (a -> tempo_stimato) += (o * 3600);
+    (a -> tempo_stimato) = (o * 3600);
 }
 
 void aggiorna_scadenza(attivita a, time_t nuova){
