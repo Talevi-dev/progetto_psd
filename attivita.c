@@ -17,24 +17,23 @@ struct act{
     time_t scadenza;
 };
 
-attivita crea_attivita(char *n, char *c, char *d, int p, int x, time_t cmp, time_t stm, time_t scd){
+attivita crea_attivita(char *n, char *c, char *d, int id, int p, int x, time_t cmp, time_t stm, time_t scd){
     attivita nuova = (attivita)malloc(sizeof(struct act));
     if (nuova == NULL){
         printf("Errore: impossibile allocare memoria per la nuova attività.\n");
         exit(EXIT_FAILURE);
     }
     
-    //strcpy(nuova->nome, n);
     strncpy(nuova->nome, n, MAX_NOME - 1);
     nuova->nome[MAX_NOME - 1] = '\0';
-    //strcpy(nuova->corso, c);
+
     strncpy(nuova->corso, c, MAX_NOME - 1);
     nuova->corso[MAX_NOME - 1] = '\0';
-    //strcpy(nuova->descrizione, d);
+
     strncpy(nuova->descrizione, d, MAX_DESC - 1);
     nuova->descrizione[MAX_DESC - 1] = '\0';
 
-    nuova->ID = genera_ID();
+    nuova->ID = id;
     nuova->priorita = p;
     nuova->status = x;
     nuova->tempo_completato = cmp;
@@ -68,11 +67,11 @@ attivita input_attivita(){
     while (1){
         printf("Inserire la priorità:\n| Alta [0|1|2|3] | Media [4|5|6] | Bassa [7|8|9|10] |\n");
         int r = scanf("%d", &priorita);
-        if (priorita <= 10 && priorita >=  0 && r == 1){
+        if (priorita <= 3 && priorita >=  1 && r == 1){
             break;
         } 
         while (getchar() != '\n');
-        printf("Errore: digitare un intero compreso tra 1 e 9\n");
+        printf("Errore: digitare un intero compreso tra 0 e 10\n");
     }
 
     while (1){
@@ -101,7 +100,7 @@ attivita input_attivita(){
         } 
     }
     
-    return crea_attivita(nome, corso, descrizione, priorita, 0, 0, stima, scadenza); 
+    return crea_attivita(nome, corso, descrizione, genera_ID(), priorita, 0, 0, stima, scadenza); 
 }
 
 void copia_attivita(attivita a, attivita b) {

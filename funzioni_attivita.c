@@ -12,9 +12,9 @@ void stampa_attivita(attivita a){
 
     int p = ottieni_priorita(a);
     printf("Priorità: ");
-    if ((p) <= 3){
+    if ((p) = 3){
         printf("Alta(%d)\n", p);
-    }else if ((p) <= 6){
+    }else if ((p) = 2){
         printf("Media(%d)\n", p);
     }else{
         printf("Bassa(%d)\n", p);
@@ -34,6 +34,34 @@ void stampa_attivita(attivita a){
     printf("Percentuale di progresso: %ld%%\n", (ottieni_tempo_completato(a) * 100) / ottieni_tempo_stimato(a));
     time_t scd = ottieni_scadenza(a);
     printf("Scadenza: %s\n", ctime(&scd));
+}
+
+void stampa_attivita2(attivita a){
+    printf("#ID: %d#", ottieni_ID(a));
+    printf("#Nome: %s#", ottieni_nome(a));
+
+    int p = ottieni_priorita(a);
+    printf("#Priorità: ");
+    if ((p) <= 3){
+        printf("Alta(%d)#", p);
+    }else if ((p) <= 6){
+        printf("Media(%d)#", p);
+    }else{
+        printf("Bassa(%d)#", p);
+    }
+
+    int s = ottieni_status(a);
+    printf("#Status: ");
+    if (s == 0){
+        printf("In corso#");
+    }else if (s == 1){
+        printf("Completata#");
+    }else{
+        printf("Scaduta#");
+    }
+    printf("#Progresso: %ld%%#", (ottieni_tempo_completato(a) * 100) / ottieni_tempo_stimato(a));
+    time_t scd = ottieni_scadenza(a);
+    printf("#Scadenza: %s#\n", ctime(&scd));
 }
 
 int confronta_attivita(attivita a, attivita b){
