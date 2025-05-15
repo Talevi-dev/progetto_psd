@@ -25,8 +25,6 @@ time_t ottieni_tempo_stimato(attivita a);
 
 time_t ottieni_scadenza(attivita a);
 
-void aggiorna_nome(attivita a, char *nuovo);
-
 void aggiorna_corso(attivita a, char *nuovo);
 
 void aggiorna_descrizione(attivita a, char *nuovo);

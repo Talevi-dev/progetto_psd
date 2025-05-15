@@ -2,7 +2,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include "utils_attivita.h"
+#include <limits.h>
+
+#include "utils.h"
 #include "attivita.h"
 
 struct act{
@@ -62,24 +64,13 @@ attivita input_attivita(){
         printf("Attenzione, la descrizione è troppo lunga, riprovare.(max 300 caratteri)\n");
     }
     
-    while (1){
-        printf("Inserire la priorità:\n| Alta [3] | Media [2] | Bassa [1] |\n");
-        int r = scanf("%d", &priorita);
-        if (priorita <= 3 && priorita >=  1 && r == 1){
-            break;
-        } 
-        pulisci_buffer();
+    printf("Inserire la priorità:\n| Alta [3] | Media [2] | Bassa [1] |\n");
+    while (input_intero(&priorita, 1, 3)){
         printf("Errore: digitare un intero compreso tra 0 e 10\n");
     }
 
-    while (1){
-        printf("Inserire il tempo stimato per completare l'attività in ore.\n");
-        int r = scanf("%d", &ore);
-        if (ore >= 1 && r == 1){
-            stima += (ore*3600);
-            break;
-        } 
-        pulisci_buffer();
+    printf("Inserire il tempo stimato per completare l'attività in ore.\n");
+    while (input_intero(&ore, 1, INT_MAX)){
         printf("Errore: inserire un numero di ore maggiore di 0.\n");
     }
 
