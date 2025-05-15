@@ -49,35 +49,53 @@ attivita input_attivita(){
     time_t stima = 0;
     time_t scadenza;
 
-    printf("Inserire il nome dell' attività.\n");
+    printf("==================================================================================================\n");
+    printf("|                            Inserire il nome dell' attività                                     |\n");
+    printf("==================================================================================================\n");
     while (input_stringa(nome, MAX_NOME)){
         printf("Attenzione, il nome dell' attività è troppo lungo, riprovare.(max 50 caratteri)\n");
     }
 
-    printf("Inserire il nome del corso.\n");
+    system("clear");
+    printf("==================================================================================================\n");
+    printf("|                               Inserire il nome del corso                                       |\n");
+    printf("==================================================================================================\n");
     while (input_stringa(corso, MAX_NOME)){
         printf("Attenzione, il nome del corso è troppo lungo, riprovare.(max 50 caratteri)\n");
     }
 
-    printf("Inserire la descrizione dell' attività.\n");
+    system("clear");
+    printf("==================================================================================================\n");
+    printf("|                           Inserire la descrizione dell' attività                               |\n");
+    printf("==================================================================================================\n");
     while (input_stringa(descrizione, MAX_DESC)){
         printf("Attenzione, la descrizione è troppo lunga, riprovare.(max 300 caratteri)\n");
     }
     
-    printf("Inserire la priorità:\n| Alta [3] | Media [2] | Bassa [1] |\n");
+    system("clear");
+    printf("==================================================================================================\n");
+    printf("|                Inserire la priorità:  | Bassa [1] | Media [2] | Alta [3] |                     |\n");
+    printf("==================================================================================================\n");
     while (input_intero(&priorita, 1, 3)){
         printf("Errore: digitare un intero compreso tra 0 e 10\n");
     }
 
-    printf("Inserire il tempo stimato per completare l'attività in ore.\n");
+    system("clear");
+    printf("==================================================================================================\n");
+    printf("|                    Inserire il tempo stimato per completare l'attività in ore                  |\n");
+    printf("==================================================================================================\n");
     while (input_intero(&ore, 1, INT_MAX)){
         printf("Errore: inserire un numero di ore maggiore di 0.\n");
     }
 
-    pulisci_buffer();
+    stima = ore * 3600;
 
+    pulisci_buffer();
+    system("clear");
+    printf("==================================================================================================\n");
+    printf("|             Inserire la data di scadenza, utilizzare il formato dd/mm/yyyy hh/mm               |\n");
+    printf("==================================================================================================\n");
     while (1){
-        printf("Inserire la data di scadenza, utilizzare il formato dd/mm/yyyy hh/mm.\n");
         input_stringa(data, MAX_DATA);
         if (controlla_input_data(data)){
             time_t ora_attuale = time(NULL);
@@ -88,6 +106,7 @@ attivita input_attivita(){
             printf("Errore: la data inserita è gia passata.\n");
         } 
     }
+    system("clear");
     
     return crea_attivita(nome, corso, descrizione, priorita, 0, 0, stima, scadenza); 
 }
@@ -140,11 +159,6 @@ time_t ottieni_tempo_stimato(attivita a){
 
 time_t ottieni_scadenza(attivita a){
     return a -> scadenza;
-}
-
-void aggiorna_nome(attivita a, char *nuovo){
-    strncpy(a->nome, nuovo, MAX_NOME - 1);
-    a->nome[MAX_NOME - 1] = '\0';
 }
 
 void aggiorna_corso(attivita a, char *nuovo){
