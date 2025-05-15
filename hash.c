@@ -86,7 +86,7 @@ void inserisci_hash(tabella_hash ht, attivita elem){
     ht->num_elem++;
 }
 
-int cerca(tabella_hash ht, char* nome, attivita** out) {
+int cerca_hash(tabella_hash ht, char* nome, attivita** out) {
     int idx = hash_fun(ht, nome);
     struct node* curr = ht->tavola[idx];
 
@@ -117,7 +117,7 @@ int cerca(tabella_hash ht, char* nome, attivita** out) {
     return count;
 }
 
-void cancella(tabella_hash ht, attivita da_eliminare){
+void cancella_hash(tabella_hash ht, attivita da_eliminare){
 
     int idx = hash_fun(ht, ottieni_nome(da_eliminare));
     struct node* curr = ht->tavola[idx];
@@ -190,4 +190,63 @@ void stampa_hash(tabella_hash ht, int priorita){
             }
         }
     }
+}
+
+void salva_hash(tabella_hash ht, const char *nome_file){
+    FILE *fd = fopen(nome_file, "w");
+    if (fd == NULL) {
+        printf("Errore apertura file %s\n", nome_file);
+        return;
+    }
+
+    for (int i = 0; i < ht->dimensione; i++) {
+        struct node* curr = ht->tavola[i];
+        while (curr != NULL) {
+            fprintf(fd, "%s\n", ottieni_nome(curr->elemento));
+            fprintf(fd, "%s\n", ottieni_corso(curr->elemento));  
+            fprintf(fd, "%s\n", ottieni_descrizione(curr->elemento));       
+            fprintf(fd, "%d\n", ottieni_priorita(curr->elemento));  
+            fprintf(fd, "%d\n", ottieni_status(curr->elemento));  
+            fprintf(fd, "%ld\n", ottieni_tempo_completato(curr->elemento));  
+            fprintf(fd, "%ld\n", ottieni_tempo_stimato(curr->elemento));  
+            fprintf(fd, "%ld\n", ottieni_scadenza(curr->elemento));  
+            curr = curr->next;
+        }
+    }
+
+    fclose(fd);
+}
+
+void carica_hash(tabella_hash ht, const char *nome_file){
+    FILE *fd = fopen(nome_file, "r");
+    if (fd == NULL) {
+        printf("Errore apertura file %s\n", nome_file);
+        return;
+    }
+
+    char buffer[8][MAX_DESC];
+
+    while (1) {
+        int i = 0;
+        for (; i < 8; i++) {
+            if (fgets(buffer[i], MAX_DESC, fd) == NULL) {
+                break;
+            }
+            buffer[i][strcspn(buffer[i], "\n")] = '\0';
+        }
+
+        if (i < 8) {
+            break; 
+        }
+
+        attivita a = crea_attivita(
+            buffer[0], buffer[1], buffer[2],
+            atoi(buffer[3]), atoi(buffer[4]),
+            atol(buffer[5]), atol(buffer[6]), atol(buffer[7])
+        );
+
+        inserisci_hash(ht, a);
+    }
+
+    fclose(fd);
 }
