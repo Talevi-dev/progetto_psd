@@ -2,4 +2,4 @@
 
 void stampa_attivita(attivita a);
 
-void stampa_attivita2(attivita a);
+void stampa_attivita_corta(attivita a);

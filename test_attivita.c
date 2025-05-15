@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include "utils_attivita.h"
+#include "utils.h"
 #include "funzioni_attivita.h"
 #include "attivita.h"
 

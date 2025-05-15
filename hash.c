@@ -168,11 +168,14 @@ void stampa_hash(tabella_hash ht, int priorita){
         return;
     }
 
+    system("clear");
+    printf("==================================================================================================\n");
     if (priorita > 0) {
-        printf("Contenuto della tabella hash con priorità %d:\n", priorita);
+        printf("|                           Attivita con priorità %d:                                             |\n", priorita);
     } else {
-        printf("Contenuto della tabella hash:\n");
+        printf("|                             Tutte le attività:                                                  |\n");
     }
+    printf("==================================================================================================\n");
 
     for (int i = 0; i < ht->dimensione; i++) {
         struct node* currNode = ht->tavola[i];
@@ -181,10 +184,10 @@ void stampa_hash(tabella_hash ht, int priorita){
             while (currNode != NULL) {
                 if (priorita > 0) {
                     if (ottieni_priorita(currNode->elemento) == priorita) {
-                        stampa_attivita2(currNode->elemento);
+                        stampa_attivita(currNode->elemento);
                     }
                 } else {
-                    stampa_attivita2(currNode->elemento);
+                    stampa_attivita(currNode->elemento);
                 }
                 currNode = currNode->next;
             }
