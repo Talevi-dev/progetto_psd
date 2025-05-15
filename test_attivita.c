@@ -12,6 +12,7 @@
 attivita file_input(char *nome_file);
 void file_output(char *nome_file, attivita a);
 int run_test(char *tc_id, int op, char *str);
+int confronta_attivita(attivita a, attivita b);
 
 int main(int argc, char *argv[]){
     FILE *test_suit, *result;
@@ -19,7 +20,7 @@ int main(int argc, char *argv[]){
     int op, pass;
 
     if (argc != 3){
-        printf("Usare: %s <test_suit> <result>\n", "test_input.exe");
+        printf("Usare: %s <test_suit> <result>\n", "test_attivita.exe");
         exit(EXIT_FAILURE);
     }
 
@@ -153,4 +154,15 @@ void file_output(char *nome_file, attivita a){
     fprintf(fd, "%ld\n", ottieni_scadenza(a));  
 
     fclose(fd); 
+}
+
+int confronta_attivita(attivita a, attivita b){
+    return (!strcmp(ottieni_nome(a), ottieni_nome(b)) && 
+            !strcmp(ottieni_corso(a), ottieni_corso(b)) && 
+            !strcmp(ottieni_descrizione(a), ottieni_descrizione(b)) &&
+            (ottieni_priorita(a) == ottieni_priorita(b)) &&
+            (ottieni_status(a) == ottieni_status(b)) &&
+            (ottieni_tempo_completato(a) == ottieni_tempo_completato(b)) &&
+            (ottieni_tempo_stimato(a) == ottieni_tempo_stimato(b)) &&
+            (ottieni_scadenza(a) == ottieni_scadenza(b)));
 }
