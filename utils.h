@@ -4,8 +4,12 @@
 
 int input_stringa(char *buff, int len);
 
+int input_intero(int *input, int x, int y);
+
 int controlla_input_data(char *data);
 
 time_t converti_data (char *data);
 
-int genera_ID();
+void pulisci_buffer();
+
+

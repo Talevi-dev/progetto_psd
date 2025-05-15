@@ -4,20 +4,35 @@
 #include <time.h>
 #include "utils_attivita.h"
 
-#define FILE_ID "id.txt"
+int input_stringa(char *str, int len) {
+    memset(str, 0, len);
 
-int input_stringa(char *str, int len){
+    if (fgets(str, len, stdin)) {
+        long l = strlen(str);
 
-    if (fgets(str, len, stdin)){  
-        str[strcspn(str, "\n")] = '\0';
-        if (str[strlen(str) - 1] != '\0' && strlen(str) == len - 1) {
-            while (getchar() != '\n'); 
+        if (l > 0 && str[l - 1] == '\n') {
+            str[l - 1] = '\0';
+        } else if (l == len - 1) {
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
             return 1;
         }
+
         return 0;
-    }else{
-        printf("Errore nell'inserimento della stringa.\n");
     }
+
+    printf("Errore nell'inserimento della stringa.\n");
+    str[0] = '\0';
+    return 1;
+}
+
+int input_intero(int *input, int x, int y){
+    int r = scanf("%d", input);
+    if (*input <= y && *input >=  x && r == 1){
+        return 0;
+    } 
+    pulisci_buffer();
+    return 1;
 }
 
 int controlla_input_data(char *data){
@@ -78,35 +93,10 @@ time_t converti_data (char *data){
     tm_data.tm_mon -= 1;      
     
     time_t data_t = mktime(&tm_data);
-    
-    if (data_t != -1) {
-        printf("La data e ora convertite in data_t: %ld\n%s\n", data_t, ctime(&data_t));
-
-    } else {
-        printf("Errore nella conversione in data_t.\n");
-    }
 
     return data_t;
 }
 
-int genera_ID(){
-    FILE *fd = fopen(FILE_ID, "r");
-    int ultimo_ID = 0;
-
-    if (fd != NULL) {
-        fscanf(fd, "%d", &ultimo_ID);
-        fclose(fd);
-    }
-
-    int nuovo_ID = ultimo_ID + 1;
-
-    fd = fopen(FILE_ID, "w");
-    if (fd != NULL) {
-        fprintf(fd, "%d", nuovo_ID);
-        fclose(fd);
-    } else {
-        printf("Errore nel salvataggio dell'ID nel file\n");
-    }
-
-    return nuovo_ID;
+void pulisci_buffer(){
+    while (getchar() != '\n');
 }
