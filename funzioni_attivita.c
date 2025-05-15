@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+
 #include "attivita.h"
 
 void stampa_attivita(attivita a){
@@ -61,15 +62,4 @@ void stampa_attivita2(attivita a){
     printf("|| Progresso: %.2f%% ||", ((double)ottieni_tempo_completato(a) / ottieni_tempo_stimato(a)) * 100);
     time_t scd = ottieni_scadenza(a);
     printf("|| Scadenza: %s||\n", ctime(&scd));
-}
-
-int confronta_attivita(attivita a, attivita b){
-    return (!strcmp(ottieni_nome(a), ottieni_nome(b)) && 
-            !strcmp(ottieni_corso(a), ottieni_corso(b)) && 
-            !strcmp(ottieni_descrizione(a), ottieni_descrizione(b)) &&
-            (ottieni_priorita(a) == ottieni_priorita(b)) &&
-            (ottieni_status(a) == ottieni_status(b)) &&
-            (ottieni_tempo_completato(a) == ottieni_tempo_completato(b)) &&
-            (ottieni_tempo_stimato(a) == ottieni_tempo_stimato(b)) &&
-            (ottieni_scadenza(a) == ottieni_scadenza(b)));
 }

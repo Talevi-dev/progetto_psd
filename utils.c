@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include "utils_attivita.h"
+#include "utils.h"
 
 int input_stringa(char *str, int len) {
     memset(str, 0, len);
