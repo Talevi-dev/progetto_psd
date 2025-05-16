@@ -5,6 +5,7 @@
 #include "attivita.h"
 #include "funzioni_attivita.h"
 #include "hash.h"
+#include "utils.h"
 
 struct node{
     attivita elemento;
@@ -28,7 +29,7 @@ tabella_hash nuova_hash(){
         exit(EXIT_FAILURE);
     }
     
-    ht->dimensione = 100;
+    ht->dimensione = 1;
     ht->num_elem = 0;
 
     ht->tavola = (struct node**)malloc(sizeof(struct node*) * ht->dimensione);
@@ -129,7 +130,7 @@ void cancella_hash(tabella_hash ht, attivita da_eliminare){
                 ht->tavola[idx] = curr->next;
             } else {
                 prev->next = curr->next;
-            }
+            }   
 
             free(curr->elemento);  
             free(curr);
@@ -178,21 +179,63 @@ void stampa_hash(tabella_hash ht, int priorita){
     printf("==================================================================================================\n");
 
     for (int i = 0; i < ht->dimensione; i++) {
-        struct node* currNode = ht->tavola[i];
+        struct node* curr = ht->tavola[i];
 
-        if (currNode != NULL) {
-            while (currNode != NULL) {
+        if (curr != NULL) {
+            while (curr != NULL) {
                 if (priorita > 0) {
-                    if (ottieni_priorita(currNode->elemento) == priorita) {
-                        stampa_attivita(currNode->elemento);
+                    if (ottieni_priorita(curr->elemento) == priorita) {
+                        stampa_attivita(curr->elemento);
                     }
                 } else {
-                    stampa_attivita(currNode->elemento);
+                    stampa_attivita(curr->elemento);
                 }
-                currNode = currNode->next;
+                curr = curr->next;
             }
         }
     }
+}
+
+void report_settimanale_hash(tabella_hash ht){
+    if (ht == NULL || ottieni_num_elem(ht) == 0) {
+        printf("Erroe: Tabella hash vuota.\n");
+        return;
+    }
+
+    int in_corso = 0;
+    int in_ritardo = 0;
+    int completate = 0;
+
+    time_t ora = time(&ora);
+    struct tm *oggi = localtime(&ora);
+
+    system("clear");
+    printf("==================================================================================================\n");
+    printf("|                                   REPORT SETTIMANALE                                           |\n");
+    printf("==================================================================================================\n");
+
+    for (int i = 0; i < ht->dimensione; i++){
+        struct node* curr = ht->tavola[i];
+
+        if (curr != NULL){
+            while (curr != NULL){
+                if (controllo_settimana(ottieni_scadenza(curr->elemento))){
+                    stampa_attivita(curr->elemento);
+                    if (ottieni_status(curr->elemento) == 0){
+                        in_corso++;
+                    }else if (ottieni_status(curr->elemento) == 1){
+                        completate++;
+                    }else{
+                        in_ritardo++;
+                    }    
+                }
+                curr = curr->next;
+            }
+        }
+    }
+    printf("==================================================================================================\n");
+    printf("|  Questa settimana hai:  %d attività completate | %d attività in corso | %d attivita in ritardo    |\n", completate, in_corso, in_ritardo);
+    printf("==================================================================================================\n");
 }
 
 void salva_hash(tabella_hash ht, const char *nome_file){
@@ -248,6 +291,7 @@ void carica_hash(tabella_hash ht, const char *nome_file){
             atol(buffer[5]), atol(buffer[6]), atol(buffer[7])
         );
 
+        aggiorna_status(a);
         inserisci_hash(ht, a);
     }
 

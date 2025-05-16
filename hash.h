@@ -21,3 +21,5 @@ void cancella_hash(tabella_hash ht, attivita da_eliminare);
 void salva_hash(tabella_hash ht, const char *nome_file);
 
 void carica_hash(tabella_hash ht, const char *nome_file);
+
+void report_settimanale_hash(tabella_hash ht);
