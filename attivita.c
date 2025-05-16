@@ -93,7 +93,7 @@ attivita input_attivita(){
     pulisci_buffer();
     system("clear");
     printf("==================================================================================================\n");
-    printf("|             Inserire la data di scadenza, utilizzare il formato dd/mm/yyyy hh/mm               |\n");
+    printf("|             Inserire la data di scadenza, utilizzare il formato dd/mm/yyyy hh:mm               |\n");
     printf("==================================================================================================\n");
     while (1){
         input_stringa(data, MAX_DATA);
