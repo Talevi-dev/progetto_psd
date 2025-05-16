@@ -12,4 +12,6 @@ time_t converti_data (char *data);
 
 void pulisci_buffer();
 
+int controllo_settimana(time_t scadenza);
+
 

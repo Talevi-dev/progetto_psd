@@ -100,3 +100,22 @@ time_t converti_data (char *data){
 void pulisci_buffer(){
     while (getchar() != '\n');
 }
+
+int controllo_settimana(time_t scadenza){
+    time_t ora = time(NULL);
+
+    struct tm oggi = *localtime(&ora);
+    int giorno_corrente = oggi.tm_wday;
+
+    int giorni_da_togliere = (giorno_corrente == 0) ? 6 : (giorno_corrente - 1);
+    oggi.tm_mday -= giorni_da_togliere;
+    oggi.tm_hour = 0;
+    oggi.tm_min = 0;
+    oggi.tm_sec = 0;
+
+    time_t lunedi = mktime(&oggi); 
+
+    time_t sabato = lunedi + (7 * 24 * 3600); 
+
+    return scadenza >= lunedi && scadenza < sabato;
+}
