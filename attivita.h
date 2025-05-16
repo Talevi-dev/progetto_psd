@@ -7,8 +7,6 @@ attivita crea_attivita(char *n, char *c, char *d, int p, int x, time_t cmp, time
 
 attivita input_attivita();
 
-void copia_attivita(attivita a, attivita b);
-
 char *ottieni_nome(attivita a);
 
 char *ottieni_corso(attivita a);

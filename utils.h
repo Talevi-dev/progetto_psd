@@ -2,16 +2,14 @@
 
 #define MAX_DATA 16+1
 
+void pulisci_buffer();
+
 int input_stringa(char *buff, int len);
 
 int input_intero(int *input, int x, int y);
 
 int controlla_input_data(char *data);
 
-time_t converti_data (char *data);
-
-void pulisci_buffer();
-
 int controllo_settimana(time_t scadenza);
 
-
+time_t converti_data (char *data);

@@ -57,7 +57,7 @@ int run_test(char *tc_id, int op, char *str){
     sprintf(output_fname, "%s_output.txt", tc_id);
     sprintf(oracle_fname, "%s_oracle.txt", tc_id);
 
-    tabella_hash in = nuova_hash();
+    tabella_hash in = nuova_hash(MAX_HASH);
     carica_hash(in, input_fname);
 
     switch (op){
