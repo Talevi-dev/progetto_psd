@@ -21,7 +21,7 @@ int main(){
     printf("==================================================================================================\n");
     printf("|                                        BENVENUTO                                               |\n");
     printf("==================================================================================================\n");
-    sleep(2);
+    sleep(1);
 
     // Loop del menù interattivo
     while (1){
@@ -34,21 +34,21 @@ int main(){
         printf("| [3] MODIFICA/AGGIORNA ATTIVITA                                                                 |\n");
         printf("| [4] VISUALIZZA ATTIVITA                                                                        |\n");
         printf("| [5] REPORT SETTIMANALE                                                                         |\n");
+        printf("| [6] PULIZIA AGENDA                                                                             |\n");
         printf("| [0] CHIUDI                                                                                     |\n");
         printf("==================================================================================================\n");
 
         int scelta;
 
         // Controllo sull'input dell'utente
-        while (input_intero(&scelta, 0, 5)){
-            printf("Errore: digitare un intero compreso tra 0 e 4\n");
+        while (input_intero(&scelta, 0, 6)){
+            printf("Errore: digitare un intero compreso tra 0 e 6\n");
         }
 
         pulisci_buffer();
         system("clear");
 
         char nome[MAX_NOME];
-
         // Switch per selezionare l'operazione
         switch (scelta){
 
@@ -59,7 +59,7 @@ int main(){
             printf("==================================================================================================\n");
             printf("|                           Attivita inserita correttamente                                      |\n");
             printf("==================================================================================================\n");
-            sleep (2);
+            sleep (1);
             break;
     
         // Eliminazione attività per nome
@@ -75,7 +75,7 @@ int main(){
 
         // Modifia attività per nome
         case 3:
-            int scelta;
+            int scelta1;
             printf("==================================================================================================\n");
             printf("|                      Inserire il nome dell' attività da modificare                             |\n");
             printf("==================================================================================================\n");
@@ -88,11 +88,11 @@ int main(){
             printf("|                               Cosa desideri modificare/aggiornare?                             |\n");
             printf("| Corso [1] | Descr.[2] | Priorità [3] | Tempo completato [4] | Tempo stimato [5] | Scadenza [6] |\n");
             printf("==================================================================================================\n");
-            while (input_intero(&scelta, 1, 6)){
+            while (input_intero(&scelta1, 1, 6)){
                 printf("Errore: digitare un intero compreso tra 1 e 6\n");
             }
 
-            modifica_attivita(ht, nome, scelta);
+            modifica_attivita(ht, nome, scelta1);
             break;
 
         // Visualizzaione attivita 
@@ -142,11 +142,41 @@ int main(){
             pulisci_buffer();
             getchar();
             break;
+
+        // Pulizia Agenda
+        case 6:
+            int scelta2;
+            printf("==================================================================================================\n");
+            printf("|                                 Rimuovi tutte le attività                                      |\n");
+            printf("|              | Completate [1] | In ritardo [2] | Entrambe [3] | Annulla [0] |                  |\n");
+            printf("==================================================================================================\n");
+           
+            while (input_intero(&scelta2, 0, 3)){
+                printf("Errore: digitare un intero compreso tra 0 e 3\n");
+            }
+
+            if (scelta2 == 0){
+                break;
+            }
+            
+            pulizia_hash(ht, scelta2);
+
+            printf("Premi INVIO per continuare\n");
+            pulisci_buffer();
+            getchar();
+            break;
         
         // Uscita dal programma
         case 0:
+            system("clear");
+            printf("==================================================================================================\n");
+            printf("|                             SALVATAGGIO E CHIUSURA PROGRAMMA                                   |\n");
+            printf("==================================================================================================\n");
+            sleep(1);
+
             salva_hash(ht, FILE_DATI);
             distruggi_hash(ht);
+            system("clear");
             exit(EXIT_SUCCESS);
             break;
 
@@ -154,6 +184,6 @@ int main(){
             break;
         }
     }
-    
+
     return 0;
 }

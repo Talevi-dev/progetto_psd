@@ -59,15 +59,14 @@ void elimina_attivita(tabella_hash ht, char* nome){
     attivita* elenco;
     int ris = cerca_hash(ht, nome, &elenco);
 
+    // Stampa le attivita trovate a schermo
+    visualizza_attivita(elenco, ris);
+    
     if (ris == 0) {
-        printf("Nessuna attività trovata con nome '%s'\n", nome);
         free(elenco);
         sleep(2);
         return;
     }
-
-    // Stampa le attivita trovate a schermo
-    visualizza_attivita(elenco, ris);
 
     // Fa scegliere all'utente tramite input quale attivita eliminare o se annullare l'operazione
     int annullata;
@@ -94,15 +93,14 @@ void modifica_attivita(tabella_hash ht, char* nome, int mod){
     attivita* elenco;
     int ris = cerca_hash(ht, nome, &elenco);
 
+    // Stampa le attivita trovate a schermo
+    visualizza_attivita(elenco, ris);
+
     if (ris == 0) {
-        printf("Nessuna attività trovata con nome '%s'\n", nome);
         free(elenco);
         sleep(2);
         return;
     }
-
-    // Stampa le attivita trovate a schermo
-    visualizza_attivita(elenco, ris);
 
     // Fa scegliere all'utente tramite input quale attivita eliminare o se annullare l'operazione
     int annullata;
@@ -221,7 +219,7 @@ void modifica_attivita(tabella_hash ht, char* nome, int mod){
                 }
                 printf("Errore: la data inserita è gia passata.\n");
             } 
-            sleep(1);
+            sleep(2);
         }
 
         aggiorna_scadenza(da_modificare, scadenza);

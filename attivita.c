@@ -98,7 +98,7 @@ attivita input_attivita(){
 
     // Input della priorita e controllo sull'intero inserito
     while (input_intero(&priorita, 1, 3)){
-        printf("Errore: digitare un intero compreso tra 0 e 10\n");
+        printf("Errore: digitare un intero compreso tra 1 e 3\n");
     }
 
     system("clear");

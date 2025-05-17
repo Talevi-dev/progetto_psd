@@ -20,6 +20,8 @@ void carica_hash(tabella_hash ht, const char *nome_file);
 
 void report_settimanale_hash(tabella_hash ht);
 
+void pulizia_hash(tabella_hash ht, int mod);
+
 int cerca_hash(tabella_hash ht, char* nome, attivita** out);
 
 int hash_fun(tabella_hash ht, char* nome);

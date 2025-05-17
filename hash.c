@@ -265,6 +265,41 @@ void report_settimanale_hash(tabella_hash ht){
     printf("==================================================================================================\n");
 }
 
+void pulizia_hash(tabella_hash ht, int mod){
+    
+    // Controllo sulla tabella in input
+    if (ht == NULL) {
+        printf("Erroe: Tabella hash vuota.\n");
+        return;
+    }
+
+    // Contatore attivita eliminate
+    int conto = 0;
+
+
+    for (int i = 0; i < ht->dimensione; i++){
+        struct node* curr = ht->tavola[i];
+
+            while (curr != NULL){
+                struct node* temp = curr->next;
+
+                // Se l'attività e completata o in ritardo e la modalità di cancellazione conbaciano
+                if ((ottieni_status(curr->elemento) == 1 && (mod == 1 || mod == 3)) || 
+                    (ottieni_status(curr->elemento) == -1 && (mod == 2 || mod == 3))){
+                    
+                    cancella_hash(ht, curr->elemento);
+                    conto++;   
+                }
+                
+                curr = temp;
+            }
+    }
+
+    printf("==================================================================================================\n");
+    printf("|                                 %d Attività eliminate                                           |\n", conto);
+    printf("==================================================================================================\n");
+}
+
 /*
 * Funzione che cerca tutte le attività con un certo nome e le inserisce nell'array di attività dato in input
 * Restituisce il numero di attivita trovate
