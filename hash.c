@@ -107,7 +107,7 @@ void stampa_hash(tabella_hash ht, int priorita){
         return;
     }
 
-    system("clear");
+    pulisci_schermo();;
     printf("==================================================================================================\n");
     if (priorita > 0) {
         printf("|                           Attivita con priorità %d:                                             |\n", priorita);
@@ -235,7 +235,7 @@ void report_settimanale_hash(tabella_hash ht){
     int in_ritardo = 0;
     int completate = 0;
 
-    system("clear");
+    pulisci_schermo();;
     printf("==================================================================================================\n");
     printf("|                                   REPORT SETTIMANALE                                           |\n");
     printf("==================================================================================================\n");

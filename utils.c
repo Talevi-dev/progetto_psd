@@ -10,6 +10,18 @@ void pulisci_buffer(){
     while (getchar() != '\n');
 }
 
+// Funzione per la pulizia dello schermo
+void pulisci_schermo(){
+    // Sistemi operativi Windows
+    #ifdef _WIN32
+        system("cls");
+
+    // Sistemi operativi Linux/macOS
+    #else
+        system("clear");
+    #endif
+}
+
 /* 
 * Funzione che legge una stringa in input e controlla che non sia troppo lunga
 * Restituisce 0 se l'input è corretto e 1 se la stringa è troppo lunga

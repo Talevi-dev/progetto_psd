@@ -17,7 +17,7 @@ int main(){
     // Carica i dati salvati nel file dati.txt
     carica_hash(ht, FILE_DATI);
 
-    system("clear");
+    pulisci_schermo();;
     printf("==================================================================================================\n");
     printf("|                                        BENVENUTO                                               |\n");
     printf("==================================================================================================\n");
@@ -25,7 +25,7 @@ int main(){
 
     // Loop del menù interattivo
     while (1){
-        system("clear");
+        pulisci_schermo();;
         printf("==================================================================================================\n");
         printf("|                           HAI %d ATTIVITA INSERITE NELL'AGENDA                                 |\n", ottieni_num_elem(ht));
         printf("==================================================================================================\n");
@@ -35,7 +35,7 @@ int main(){
         printf("| [4] VISUALIZZA ATTIVITA                                                                        |\n");
         printf("| [5] REPORT SETTIMANALE                                                                         |\n");
         printf("| [6] PULIZIA AGENDA                                                                             |\n");
-        printf("| [0] CHIUDI                                                                                     |\n");
+        printf("| [0] SALVA E CHIUDI                                                                             |\n");
         printf("==================================================================================================\n");
 
         int scelta;
@@ -46,7 +46,7 @@ int main(){
         }
 
         pulisci_buffer();
-        system("clear");
+        pulisci_schermo();;
 
         char nome[MAX_NOME];
         // Switch per selezionare l'operazione
@@ -83,7 +83,7 @@ int main(){
                 printf("Attenzione, il nome dell' attività è troppo lungo, riprovare.(max 50 caratteri)\n");
             }
 
-            system("clear");
+            pulisci_schermo();;
             printf("==================================================================================================\n");
             printf("|                               Cosa desideri modificare/aggiornare?                             |\n");
             printf("| Corso [1] | Descr.[2] | Priorità [3] | Tempo completato [4] | Tempo stimato [5] | Scadenza [6] |\n");
@@ -108,7 +108,7 @@ int main(){
 
             // Visualizzazione per nome
             if (priorita == 4){
-                system("clear");
+                pulisci_schermo();;
                 printf("==================================================================================================\n");
                 printf("|                      Inserire il nome dell' attività da visualizzare                           |\n");
                 printf("==================================================================================================\n");
@@ -168,7 +168,7 @@ int main(){
         
         // Uscita dal programma
         case 0:
-            system("clear");
+            pulisci_schermo();;
             printf("==================================================================================================\n");
             printf("|                             SALVATAGGIO E CHIUSURA PROGRAMMA                                   |\n");
             printf("==================================================================================================\n");
@@ -176,7 +176,7 @@ int main(){
 
             salva_hash(ht, FILE_DATI);
             distruggi_hash(ht);
-            system("clear");
+            pulisci_schermo();;
             exit(EXIT_SUCCESS);
             break;
 

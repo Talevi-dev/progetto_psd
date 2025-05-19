@@ -4,6 +4,8 @@
 
 void pulisci_buffer();
 
+void pulisci_schermo();
+
 int input_stringa(char *buff, int len);
 
 int input_intero(int *input, int x, int y);

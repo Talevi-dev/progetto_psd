@@ -122,6 +122,7 @@ attivita file_input(char *nome_file){
     FILE *fd = fopen(nome_file, "r");
     if (fd == NULL) {
         printf("Errore in apertura del file %s.\n", nome_file);
+        exit(EXIT_FAILURE);
     }
 
     int i = 0;

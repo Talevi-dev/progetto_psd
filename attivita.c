@@ -71,7 +71,7 @@ attivita input_attivita(){
         printf("Attenzione, il nome dell' attività è troppo lungo, riprovare.(max 50 caratteri)\n");
     }
 
-    system("clear");
+    pulisci_schermo();;
     printf("==================================================================================================\n");
     printf("|                               Inserire il nome del corso                                       |\n");
     printf("==================================================================================================\n");
@@ -81,7 +81,7 @@ attivita input_attivita(){
         printf("Attenzione, il nome del corso è troppo lungo, riprovare.(max 50 caratteri)\n");
     }
 
-    system("clear");
+    pulisci_schermo();;
     printf("==================================================================================================\n");
     printf("|                           Inserire la descrizione dell' attività                               |\n");
     printf("==================================================================================================\n");
@@ -91,7 +91,7 @@ attivita input_attivita(){
         printf("Attenzione, la descrizione è troppo lunga, riprovare.(max 300 caratteri)\n");
     }
     
-    system("clear");
+    pulisci_schermo();;
     printf("==================================================================================================\n");
     printf("|                Inserire la priorità:  | Bassa [1] | Media [2] | Alta [3] |                     |\n");
     printf("==================================================================================================\n");
@@ -101,7 +101,7 @@ attivita input_attivita(){
         printf("Errore: digitare un intero compreso tra 1 e 3\n");
     }
 
-    system("clear");
+    pulisci_schermo();;
     printf("==================================================================================================\n");
     printf("|                    Inserire il tempo stimato per completare l'attività in ore                  |\n");
     printf("==================================================================================================\n");
@@ -115,7 +115,7 @@ attivita input_attivita(){
     stima = ore * 3600;
 
     pulisci_buffer();
-    system("clear");
+    pulisci_schermo();;
     printf("==================================================================================================\n");
     printf("|             Inserire la data di scadenza, utilizzare il formato dd/mm/yyyy hh:mm               |\n");
     printf("==================================================================================================\n");
@@ -141,7 +141,7 @@ attivita input_attivita(){
         } 
     }
 
-    system("clear");
+    pulisci_schermo();;
     
     // Creazione e restituzione dell'attivitaìà
     return crea_attivita(nome, corso, descrizione, priorita, 0, 0, stima, scadenza); 

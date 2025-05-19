@@ -118,7 +118,7 @@ void modifica_attivita(tabella_hash ht, char* nome, int mod){
     // Modifca del nome del corso
     case 1:
         char nuovo_crs[MAX_NOME];
-        system("clear");
+        pulisci_schermo();;
         printf("==================================================================================================\n");
         printf("|                          Inserire il nuovo nome del corso                                      |\n");
         printf("==================================================================================================\n");
@@ -131,7 +131,7 @@ void modifica_attivita(tabella_hash ht, char* nome, int mod){
     // Modifica della descrizione
     case 2:
         char nuovo_dsc[MAX_DESC];
-        system("clear");
+        pulisci_schermo();;
         printf("==================================================================================================\n");
         printf("|                           Inserire la nuova descrizone                                         |\n");
         printf("==================================================================================================\n");
@@ -144,7 +144,7 @@ void modifica_attivita(tabella_hash ht, char* nome, int mod){
     // Modifica della priorità
     case 3:
         int priorita;
-        system("clear");
+        pulisci_schermo();;
         printf("==================================================================================================\n");
         printf("|             Inserire la nuova priorità: | Bassa [1] | Media [2] | Alta [3] |                   |\n");
         printf("==================================================================================================\n");
@@ -157,7 +157,7 @@ void modifica_attivita(tabella_hash ht, char* nome, int mod){
     // Modifica delle ore completate
     case 4:
         int ore_cmp;
-        system("clear");
+        pulisci_schermo();;
         printf("==================================================================================================\n");
         printf("|                     Inserire il le ore compeletate di questa attivita                          |\n");
         printf("==================================================================================================\n");
@@ -176,7 +176,7 @@ void modifica_attivita(tabella_hash ht, char* nome, int mod){
     // Modifica delle ore stimate
     case 5:
         int ore_stm;
-        system("clear");
+        pulisci_schermo();;
         printf("==================================================================================================\n");
         printf("|               Inserire il nuovo tempo stimato per completare l'attività in ore                 |\n");
         printf("==================================================================================================\n");
@@ -198,7 +198,7 @@ void modifica_attivita(tabella_hash ht, char* nome, int mod){
         time_t scadenza;
 
         while (1){
-            system("clear");
+            pulisci_schermo();;
             printf("==================================================================================================\n");
             printf("|             Inserire la nuova data di scadenza, utilizzare il formato dd/mm/yyyy hh:mm         |\n");
             printf("==================================================================================================\n");
@@ -239,7 +239,7 @@ void modifica_attivita(tabella_hash ht, char* nome, int mod){
 
 // Funzione che stampa a schermo un array di attività
 void visualizza_attivita(attivita* elenco, int ris){
-    system("clear");
+    pulisci_schermo();;
 
     if (ris == 1){
         printf("==================================================================================================\n");
