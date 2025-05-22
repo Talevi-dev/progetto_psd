@@ -9,6 +9,7 @@
 #include "funzioni_attivita.h"
 
 #define FILE_DATI "dati.txt"
+#define FILE_REPORT "report_settimanale.txt"
 
 int main(){
     // Iniziallizza la tabella hash
@@ -33,7 +34,7 @@ int main(){
         printf("| [2] CANCELLA ATTIVITA                                                                          |\n");
         printf("| [3] MODIFICA/AGGIORNA ATTIVITA                                                                 |\n");
         printf("| [4] VISUALIZZA ATTIVITA                                                                        |\n");
-        printf("| [5] REPORT SETTIMANALE                                                                         |\n");
+        printf("| [5] GENERA REPORT SETTIMANALE                                                                  |\n");
         printf("| [6] PULIZIA AGENDA                                                                             |\n");
         printf("| [0] SALVA E CHIUDI                                                                             |\n");
         printf("==================================================================================================\n");
@@ -136,11 +137,9 @@ int main(){
 
         // Report Settimanale
         case 5:
-            report_settimanale_hash(ht);
+            report_settimanale_hash(ht, FILE_REPORT);
 
-            printf("Premi INVIO per continuare\n");
-            pulisci_buffer();
-            getchar();
+            sleep(2);
             break;
 
         // Pulizia Agenda

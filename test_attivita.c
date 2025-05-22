@@ -20,6 +20,7 @@ int main(int argc, char *argv[]){
     char tc_id[M], str[MAX_DESC];
     int op, pass;
 
+    // Controllo degli argomenti
     if (argc != 3){
         printf("Usare: %s <test_suit> <result>\n", "test_attivita.exe");
         exit(EXIT_FAILURE);
@@ -28,11 +29,15 @@ int main(int argc, char *argv[]){
     test_suit = fopen(argv[1], "r");
     result = fopen(argv[2], "w");
     
+    // Contollo sull'apertura dei file
     if ((test_suit == NULL) || (result == NULL)){
         printf("Errore apertura dei file\n");
         exit(EXIT_FAILURE);
     }
 
+    // Lettura del tc, di un intero op per specificare ,tramite lo switch in run_test, 
+    // quale delle funzioni verra testata da quel specifico test case e di una stringa 
+    // contenente le modifice da apportare all'attività
     while (fscanf(test_suit, "%s %d %s", tc_id, &op, str) == 3){
         pass = run_test(tc_id, op, str);
 
@@ -54,54 +59,59 @@ int run_test(char *tc_id, int op, char *str){
     char input_fname[M], output_fname[M], oracle_fname[M];
     int result;
 
+    // Costruzione dei nomi dei file
     sprintf(input_fname, "%s_input.txt", tc_id);
     sprintf(output_fname, "%s_output.txt", tc_id);
     sprintf(oracle_fname, "%s_oracle.txt", tc_id);
 
+    // Lettura input e oracolo
     attivita in = file_input(input_fname);
     attivita or = file_input(oracle_fname);
 
+    // Switch per le varie funzioni da testare
     switch (op){
+
+        // Testing sulla funzione aggiorna_corso
         case 1:
-            aggiorna_nome(in, str);
-            result = confronta_attivita(in, or);
-            file_output(output_fname, in);
-            break;
-    
-        case 2:
             aggiorna_corso(in, str);
             result = confronta_attivita(in, or);
             file_output(output_fname, in);
             break;
     
-        case 3:
+        // Testing sulla funzione aggiorna_descrzione
+        case 2:
             aggiorna_descrizione(in, str);
             result = confronta_attivita(in, or);
             file_output(output_fname, in);
             break;
 
-       case 4:
+        // Testing sulla funzione aggiorna_priorita
+       case 3:
             aggiorna_priorita(in, atoi(str));
             result = confronta_attivita(in, or);
             file_output(output_fname, in);
             break;
 
-        case 5:
+        // Testing sulle funzioni aggiorna_tempo_completato e aggiorna_status
+        case 4:
             aggiorna_tempo_completato(in, atol(str));
             aggiorna_status(in);
             result = confronta_attivita(in, or);
             file_output(output_fname, in);
             break;
 
-        case 6:
+        // Testing sulle funzioni aggiorna_tempo_stimato e aggiorna_status
+        case 5:
             aggiorna_tempo_stimato(in, atol(str));
             aggiorna_status(in);
             result = confronta_attivita(in, or);
             file_output(output_fname, in);
             break;
         
-        case 7:
+        // Testing sulle funzioni aggiorna_scadenza e aggiorna_status
+        case 6:
             aggiorna_scadenza(in, atol(str));
+            aggiorna_status(in);
             result = confronta_attivita(in, or);
             file_output(output_fname, in);
             break;
@@ -116,7 +126,11 @@ int run_test(char *tc_id, int op, char *str){
     return result;
 }
 
+// Leggere fino 8 (NUM_RIGHE) dal file dato in input e le salva in una matrice.
+// Restituisce un' attivita ottenuta convertendo le righe della matrice 
 attivita file_input(char *nome_file){
+
+    // Matrice bidimensionale per contenere le righe del file
     char buffer[NUM_RIGHE][MAX_DESC];
 
     FILE *fd = fopen(nome_file, "r");
@@ -133,10 +147,13 @@ attivita file_input(char *nome_file){
 
     fclose(fd);
 
+    // Creazione di una nuova attività con i valori letti dal file, 
+    // conversione dei campi che non sono stringhe
     return crea_attivita(buffer[0], buffer[1], buffer[2], atoi(buffer[3]), atoi(buffer[4]), 
                         atol(buffer[5]), atol(buffer[6]), atol(buffer[7]));
 }
 
+// Salva su file l'attivita passata in input, dividendo i campi della struttura in righe
 void file_output(char *nome_file, attivita a){  
 	int i;  
 	FILE *fd; 	
@@ -158,6 +175,7 @@ void file_output(char *nome_file, attivita a){
     fclose(fd); 
 }
 
+// Confronta se due attivita sono identiche, restituisce 1 se è cosi e 0 altrimenti
 int confronta_attivita(attivita a, attivita b){
     return (!strcmp(ottieni_nome(a), ottieni_nome(b)) && 
             !strcmp(ottieni_corso(a), ottieni_corso(b)) && 
